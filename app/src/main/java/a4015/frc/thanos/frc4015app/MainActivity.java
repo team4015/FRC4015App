@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 import a4015.frc.thanos.frc4015app.devStuff.ScoutingDataPackage;
 /**
  * Uses the ScoutingDataPackage class to validate and store all data that the user inputs through the text boxes
@@ -563,6 +565,11 @@ public class MainActivity extends AppCompatActivity {
                 dataPackage.setDisabledTime(Integer.parseInt(disabledTime.getText().toString()));
             }
             dataPackage.addComment(comments.getText().toString());
+            try {
+                dataPackage.packageForSending();
+            } catch (IOException e) {
+                Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
+            }
         } catch (ScoutingDataPackage.InvalidDataException e) {
             Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
         }
