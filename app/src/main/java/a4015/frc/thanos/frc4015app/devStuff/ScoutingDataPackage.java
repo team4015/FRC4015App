@@ -61,13 +61,7 @@ public class ScoutingDataPackage implements Serializable {
      * @param teamNumber - The team number of the teams who's robot is being submitted
      * @param scoutIP - The IP of the scout submitting data. Not to be provided from the scout themselves.
      */
-    public ScoutingDataPackage(int teamNumber, String scoutIP) throws InvalidDataException {
-        if (teamNumber < 0) {
-            throw new InvalidDataException("Team number must be >= 0!");
-        }
-        if (scoutIP == null) {
-            throw new InvalidDataException("IP is invalid!");
-        }
+    public ScoutingDataPackage(int teamNumber, String scoutIP) {
         TEAM_NUMBER = teamNumber;
         SCOUT_IP = scoutIP;
     }
@@ -90,9 +84,6 @@ public class ScoutingDataPackage implements Serializable {
         if (matchDataReady) {
             throw new InvalidDataException("Match is already configured!");
         }
-        if (teamMates.length != 2) {
-            throw new InvalidDataException("Number of team mates must be exactly 2!");
-        }
         int last = -1;
         for (int test : teamMates) {
             if (test < 0) {
@@ -102,9 +93,6 @@ public class ScoutingDataPackage implements Serializable {
                 throw new InvalidDataException("Team numbers must be distinct!");
             }
             last = test;
-        }
-        if (opponentNumbers.length != 3) {
-            throw new InvalidDataException("Number of opponents must be exactly 3!");
         }
         int lastB = -1;
         boolean first = true;
